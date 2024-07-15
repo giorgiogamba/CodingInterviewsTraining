@@ -57,6 +57,44 @@ bool arePermutations(string s1, string s2)
     return true;
 }
 
+int numOfChars(char str[], int strLength, char target)
+{
+    int count = 0;
+    for (int i = 0; i < strLength; i ++)
+        if (str[i] == target) count ++;
+
+    return count;
+}
+
+// Replaces the string's whitespaces with the combination '%20'
+// Suppose str has already room for the final string
+void replaceWhitspace(char str[], int initialLength)
+{
+    // Count num whitespace in order to get the new index because we perform backward
+    const int numWhitespaces = numOfChars(str, initialLength, ' ');
+
+    // Compute new index from new string length. The new whitespace code is 3 times a whitespace:
+    int newIndex = initialLength - numWhitespaces + numWhitespaces * 3 - 1;
+    int index = initialLength - 1;
+    while (newIndex > 0)
+    {
+        if (str[index] == ' ')  // Replace whitespace
+        {
+            str[newIndex] = '0';
+            str[newIndex - 1] = '2';
+            str[newIndex - 2] = '%';
+            newIndex -= 3;
+        }
+        else // Copy character
+        {
+            str[newIndex] = str[index];
+            newIndex --;
+        }
+        index --;
+    }
+
+}
+
 int main()
 {
     vector<string> stringDataset(6, "");
@@ -86,6 +124,11 @@ int main()
     {
         std::cout << "Input1: " << stringDataset[i] << " -- Input2: " << stringDataset2[i] << " -- Result: " << arePermutations(stringDataset[i], stringDataset2[i]) << std::endl;
     }
+
+    char replaceInput[] = "Hi, how are you?";
+    std::cout << "Replace: " << replaceInput << std::endl;
+    replaceWhitspace(replaceInput, sizeof(replaceInput)/sizeof(char));
+    std::cout << "Result: " << replaceInput << std::endl;
 
     return 0;
 }
