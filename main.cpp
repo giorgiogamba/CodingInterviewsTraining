@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "bit_manipulation.cpp"
+
 using namespace std;
 
 
@@ -129,6 +131,15 @@ int main()
     std::cout << "Replace: " << replaceInput << std::endl;
     replaceWhitspace(replaceInput, sizeof(replaceInput)/sizeof(char));
     std::cout << "Result: " << replaceInput << std::endl;
+
+    printNumInBit(10);
+    std::cout << getBit(10, 3) << std::endl;
+
+    std::cout << setBit(10, 2, 1) << std::endl;
+
+    std::cout << clearBit(10, 1) << std::endl;
+
+    printNumInBit(insertNumberInAnother(10011, 2, 10000000000, 6));
 
     return 0;
 }
